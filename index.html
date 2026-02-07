@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>New Bharat Boring - Estimate</title>
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  margin: 25px;
+}
+.header{
+  text-align:center;
+  margin-bottom:20px;
+}
+.header h2{
+  margin:0;
+}
+.info{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:15px;
+}
+.info div{
+  width:48%;
+}
+label{
+  font-weight:bold;
+}
+input{
+  width:100%;
+  padding:6px;
+  margin-top:4px;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+th,td{
+  border:1px solid #000;
+  padding:8px;
+}
+th{
+  background:#f0f0f0;
+}
+.actions{
+  margin:15px 0;
+}
+button{
+  padding:8px 14px;
+  cursor:pointer;
+}
+
+@media print{
+  .actions{display:none;}
+  input{border:none;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h2>NEW BHARAT BORING</h2>
+  <p>Estimate / Job Card</p>
+</div>
+
+<div class="info">
+  <div>
+    <label>Customer Name</label>
+    <input type="text" placeholder="Enter customer name">
+  </div>
+  <div>
+    <label>Date</label>
+    <input type="date">
+  </div>
+</div>
+
+<div class="actions">
+  <button onclick="addRow()">Add Item</button>
+  <button onclick="window.print()">Print / Save PDF</button>
+</div>
+
+<table id="table">
+<thead>
+<tr>
+  <th>Sr No</th>
+  <th>Particular</th>
+  <th>Amount (₹)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td contenteditable>Block Sleeve Fitting</td>
+  <td contenteditable></td>
+</tr>
+<tr>
+  <td>2</td>
+  <td contenteditable>Block Body Boring</td>
+  <td contenteditable></td>
+</tr>
+</tbody>
+</table>
+
+<script>
+function addRow(){
+  let table=document.getElementById("table").getElementsByTagName("tbody")[0];
+  let rowCount=table.rows.length;
+  let row=table.insertRow();
+  row.insertCell(0).innerHTML=rowCount+1;
+  row.insertCell(1).contentEditable=true;
+  row.insertCell(2).contentEditable=true;
+}
+</script>
+
+</body>
+</html>
