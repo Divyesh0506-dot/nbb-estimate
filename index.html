@@ -7,25 +7,23 @@
 <style>
 body{
   font-family: Arial, sans-serif;
-  margin: 25px;
+  margin:20px;
+  font-size:14px;
 }
-.header{
+h2{
   text-align:center;
-  margin-bottom:20px;
+  margin-bottom:5px;
 }
-.header h2{
-  margin:0;
-}
-.info{
+.subtitle{
+  text-align:center;
   margin-bottom:15px;
 }
-label{
-  font-weight:bold;
+.customer{
+  margin-bottom:10px;
 }
-input{
-  width:100%;
-  padding:6px;
-  margin-top:4px;
+.customer input{
+  width:300px;
+  padding:5px;
 }
 table{
   width:100%;
@@ -33,23 +31,27 @@ table{
 }
 th,td{
   border:1px solid #000;
-  padding:8px;
+  padding:5px;
 }
 th{
-  background:#f0f0f0;
+  background:#f2f2f2;
+}
+.amount input{
+  width:100%;
+  box-sizing:border-box;
+  padding:4px;
+  border:1px solid #aaa;
+}
+.total-row td{
+  font-weight:bold;
+  background:#eaffea;
 }
 .actions{
-  margin:15px 0;
+  margin:10px 0;
 }
 button{
-  padding:8px 14px;
-  cursor:pointer;
-}
-.total-box{
-  text-align:right;
-  margin-top:10px;
-  font-size:18px;
-  font-weight:bold;
+  padding:6px 10px;
+  margin-right:5px;
 }
 
 @media print{
@@ -61,65 +63,82 @@ button{
 
 <body>
 
-<div class="header">
-  <h2>NEW BHARAT BORING</h2>
-  <p>Estimate / Job Card</p>
-</div>
+<h2>NEW BHARAT BORING</h2>
+<div class="subtitle">Estimate / Job Card</div>
 
-<div class="info">
-  <label>Customer Name</label>
+<div class="customer">
+  <b>Customer Name:</b>
   <input type="text" placeholder="Enter customer name">
 </div>
 
 <div class="actions">
-  <button onclick="addRow()">Add Item</button>
+  <button onclick="addRow()">Add Row</button>
   <button onclick="window.print()">Print / Save PDF</button>
 </div>
 
-<table id="table">
+<table id="estTable">
 <thead>
 <tr>
-  <th>Sr No</th>
+  <th width="6%">Sr No</th>
   <th>Particular</th>
-  <th>Amount (₹)</th>
+  <th width="20%">Amount (₹)</th>
 </tr>
 </thead>
 <tbody>
-<tr><td>1</td><td contenteditable>Block Sleeve Fitting</td><td contenteditable oninput="calculateTotal()"></td></tr>
-<tr><td>2</td><td contenteditable>Block Body Boring</td><td contenteditable oninput="calculateTotal()"></td></tr>
-<tr><td>3</td><td contenteditable>Block Sleeve Removing</td><td contenteditable oninput="calculateTotal()"></td></tr>
-<tr><td>4</td><td contenteditable>Crank Cutting</td><td contenteditable oninput="calculateTotal()"></td></tr>
-<tr><td>5</td><td contenteditable>Crank Grinding</td><td contenteditable oninput="calculateTotal()"></td></tr>
-<tr><td>6</td><td contenteditable>Head Surface</td><td contenteditable oninput="calculateTotal()"></td></tr>
-<tr><td>7</td><td contenteditable>Valve Seat Cutting</td><td contenteditable oninput="calculateTotal()"></td></tr>
-<tr><td>8</td><td contenteditable>Engine Fitting</td><td contenteditable oninput="calculateTotal()"></td></tr>
+<tr><td>1</td><td>Block Sleeve Fitting</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>2</td><td>Block Body Boring</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>3</td><td>Block Sleeve Removing</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>4</td><td>Crank Cutting</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>5</td><td>Crank Out</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>6</td><td>Crank Oil Seal</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>7</td><td>Crank Collar Welding</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>8</td><td>Connecting Rod Bush Bore</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>9</td><td>Connecting Rod Panel Bore</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>10</td><td>Connecting Rod Out Checking</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>11</td><td>Cam Bush Bore</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>12</td><td>Cam Grinding</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>13</td><td>Cam A/c Grinding</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>14</td><td>Main Line Boring</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>15</td><td>Main Connecting Fitting</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>16</td><td>Piston Top Cutting</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>17</td><td>Head Ring Fitting & Seat Cutting</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>18</td><td>Guide Fitting / Valve Polish</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>19</td><td>Head Surfacing</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>20</td><td>Head Tapped Setting</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>21</td><td>Head Chockup Remove</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>22</td><td>Head Cold Welding</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>23</td><td>Block Foundation Welding</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>24</td><td>Block Oil Seal</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>25</td><td>Dry Gear Bush Fitting</td><td class="amount"><input oninput="calcTotal()"></td></tr>
+<tr><td>26</td><td>Oil Pump Repair</td><td class="amount"><input oninput="calcTotal()"></td></tr>
 </tbody>
+
+<tfoot>
+<tr class="total-row">
+  <td colspan="2">Total</td>
+  <td>₹ <span id="total">0.00</span></td>
+</tr>
+</tfoot>
 </table>
 
-<div class="total-box">
-  Total Amount: ₹ <span id="total">0</span>
-</div>
-
 <script>
-function addRow(){
-  let table=document.getElementById("table").getElementsByTagName("tbody")[0];
-  let rowCount=table.rows.length;
-  let row=table.insertRow();
-  row.insertCell(0).innerHTML=rowCount+1;
-  row.insertCell(1).contentEditable=true;
-  let amt=row.insertCell(2);
-  amt.contentEditable=true;
-  amt.setAttribute("oninput","calculateTotal()");
-}
-
-function calculateTotal(){
+function calcTotal(){
   let total=0;
-  let rows=document.querySelectorAll("#table tbody tr");
-  rows.forEach(row=>{
-    let val=parseFloat(row.cells[2].innerText);
-    if(!isNaN(val)) total+=val;
+  document.querySelectorAll(".amount input").forEach(i=>{
+    let v=parseFloat(i.value);
+    if(!isNaN(v)) total+=v;
   });
   document.getElementById("total").innerText=total.toFixed(2);
+}
+
+function addRow(){
+  let table=document.querySelector("#estTable tbody");
+  let r=table.insertRow();
+  r.insertCell(0).innerText=table.rows.length;
+  r.insertCell(1).contentEditable=true;
+  let c=r.insertCell(2);
+  c.className="amount";
+  c.innerHTML='<input oninput="calcTotal()">';
 }
 </script>
 
