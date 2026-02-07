@@ -17,12 +17,7 @@ body{
   margin:0;
 }
 .info{
-  display:flex;
-  justify-content:space-between;
   margin-bottom:15px;
-}
-.info div{
-  width:48%;
 }
 label{
   font-weight:bold;
@@ -50,6 +45,12 @@ button{
   padding:8px 14px;
   cursor:pointer;
 }
+.total-box{
+  text-align:right;
+  margin-top:10px;
+  font-size:18px;
+  font-weight:bold;
+}
 
 @media print{
   .actions{display:none;}
@@ -66,14 +67,8 @@ button{
 </div>
 
 <div class="info">
-  <div>
-    <label>Customer Name</label>
-    <input type="text" placeholder="Enter customer name">
-  </div>
-  <div>
-    <label>Date</label>
-    <input type="date">
-  </div>
+  <label>Customer Name</label>
+  <input type="text" placeholder="Enter customer name">
 </div>
 
 <div class="actions">
@@ -90,18 +85,20 @@ button{
 </tr>
 </thead>
 <tbody>
-<tr>
-  <td>1</td>
-  <td contenteditable>Block Sleeve Fitting</td>
-  <td contenteditable></td>
-</tr>
-<tr>
-  <td>2</td>
-  <td contenteditable>Block Body Boring</td>
-  <td contenteditable></td>
-</tr>
+<tr><td>1</td><td contenteditable>Block Sleeve Fitting</td><td contenteditable oninput="calculateTotal()"></td></tr>
+<tr><td>2</td><td contenteditable>Block Body Boring</td><td contenteditable oninput="calculateTotal()"></td></tr>
+<tr><td>3</td><td contenteditable>Block Sleeve Removing</td><td contenteditable oninput="calculateTotal()"></td></tr>
+<tr><td>4</td><td contenteditable>Crank Cutting</td><td contenteditable oninput="calculateTotal()"></td></tr>
+<tr><td>5</td><td contenteditable>Crank Grinding</td><td contenteditable oninput="calculateTotal()"></td></tr>
+<tr><td>6</td><td contenteditable>Head Surface</td><td contenteditable oninput="calculateTotal()"></td></tr>
+<tr><td>7</td><td contenteditable>Valve Seat Cutting</td><td contenteditable oninput="calculateTotal()"></td></tr>
+<tr><td>8</td><td contenteditable>Engine Fitting</td><td contenteditable oninput="calculateTotal()"></td></tr>
 </tbody>
 </table>
+
+<div class="total-box">
+  Total Amount: ₹ <span id="total">0</span>
+</div>
 
 <script>
 function addRow(){
@@ -110,7 +107,19 @@ function addRow(){
   let row=table.insertRow();
   row.insertCell(0).innerHTML=rowCount+1;
   row.insertCell(1).contentEditable=true;
-  row.insertCell(2).contentEditable=true;
+  let amt=row.insertCell(2);
+  amt.contentEditable=true;
+  amt.setAttribute("oninput","calculateTotal()");
+}
+
+function calculateTotal(){
+  let total=0;
+  let rows=document.querySelectorAll("#table tbody tr");
+  rows.forEach(row=>{
+    let val=parseFloat(row.cells[2].innerText);
+    if(!isNaN(val)) total+=val;
+  });
+  document.getElementById("total").innerText=total.toFixed(2);
 }
 </script>
 
