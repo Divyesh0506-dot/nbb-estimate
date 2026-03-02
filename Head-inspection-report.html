@@ -1,113 +1,207 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Inspection Letter Generator</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        .container {
-            max-width: 700px;
-            margin: auto;
-        }
-        input {
-            padding: 8px;
-            width: 100%;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px;
-            font-size: 16px;
-            margin-right: 10px;
-            cursor: pointer;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Inspection Letter</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+body{
+    font-family: "Times New Roman", serif;
+    margin:0;
+    padding:20px;
+}
+
+.top-controls{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+input{
+    padding:6px;
+    margin:5px;
+    font-size:14px;
+}
+
+button{
+    padding:8px 18px;
+    font-size:15px;
+    margin-top:10px;
+    cursor:pointer;
+}
+
+.letter{
+    width:800px;
+    margin:auto;
+    padding:40px;
+    border:1px solid #000;
+}
+
+.header{
+    text-align:center;
+}
+
+.company-name{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.address{
+    font-size:14px;
+}
+
+.hr-line{
+    border-top:2px solid black;
+    margin:10px 0 20px 0;
+}
+
+.right{
+    text-align:right;
+}
+
+.subject{
+    font-weight:bold;
+    margin-top:15px;
+}
+
+.content{
+    margin-top:15px;
+    line-height:1.6;
+    text-align:justify;
+}
+
+.conclusion-title{
+    font-weight:bold;
+    margin-top:20px;
+}
+
+ul{
+    margin-top:10px;
+}
+
+.signature{
+    margin-top:70px;
+}
+
+.footer-note{
+    text-align:center;
+    font-weight:bold;
+    margin-top:40px;
+}
+</style>
 </head>
+
 <body>
 
-<div class="container">
-    <h2>NEW BHARAT BORING AND GENERAL ENGINEERING WORKS</h2>
-    <p>Turn by Tractor Centre, Opp. Tigraniya Factory Dwarka, Mumbai Agra Road, Nashik-422001.</p>
-
-    <hr>
-
-    <label><b>Date:</b></label>
-    <input type="date" id="date">
-
-    <label><b>Vehicle Number:</b></label>
-    <input type="text" id="vehicle" placeholder="Enter Vehicle Number">
-
+<div class="top-controls">
+    Date: <input type="date" id="date">
+    Vehicle No: <input type="text" id="vehicle" placeholder="MH 29 BE 2828">
     <br>
-
     <button onclick="generatePDF()">Create PDF</button>
-    <button onclick="sendWhatsApp()">Send on WhatsApp</button>
+</div>
+
+<div class="letter" id="letter">
+
+    <div class="header">
+
+        <!-- LOGO AREA -->
+        <div>
+            <img src="https://via.placeholder.com/120x80?text=LOGO" width="120">
+        </div>
+
+        <div class="company-name">
+            NEW BHARAT BORING AND GENERAL ENGINEERING WORKS
+        </div>
+
+        <div class="address">
+            Turn by Tractor Centre, Opp. Tigraniya Factory Dwarka, Mumbai Agra Road, Nashik-422001.
+        </div>
+
+    </div>
+
+    <div class="hr-line"></div>
+
+    <div class="right">
+        Date: <span id="showDate"></span>
+    </div>
+
+    <p>
+    To,<br>
+    The Workshop Manager,<br>
+    Seva Trucking Private Limited,<br>
+    Vilholi – Nashik.
+    </p>
+
+    <div class="subject">
+        SUBJECT: Inspection of Cylinder Head components of vehicle registration number 
+        <span id="showVehicle"></span>
+    </div>
+
+    <div class="content">
+
+        <p><b>Respected Sir,</b></p>
+
+        <p>
+        We have inspected the following components of the above-mentioned vehicle and following readings are observed.
+        We have inspected the cylinder head of the above-mentioned vehicle and it is observed that there is a warpage 
+        of 0.20 mm between cylinder no.1 and no.4. And also, Intake and Exhaust valves leakages.
+        </p>
+
+        <p>
+        Hence it is recommended to Re-conditioning and Re-surfacing the Cylinder Head.
+        </p>
+
+        <p><b>The Cylinder Head is OK.</b></p>
+
+        <div class="conclusion-title">
+            CONCLUSION:
+        </div>
+
+        <ul>
+            <li>Cylinder Heads Inlet and Exhaust valves need to be replaced.</li>
+            <li>Inlet valves – 6 Nos</li>
+            <li>Exhaust valves – 6 Nos</li>
+            <li>Valve Oil Seals – 12 Nos</li>
+        </ul>
+
+    </div>
+
+    <div class="signature right">
+        Yours sincerely,
+        <br><br><br>
+        _______________________
+    </div>
+
+    <div class="footer-note">
+        ALL TYPES OF ENGINE & HEAD REPAIRING AND REBUILDING WORKS
+    </div>
+
 </div>
 
 <script>
-let pdfBlob;
 
-async function generatePDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+function generatePDF(){
 
-    const date = document.getElementById("date").value;
-    const vehicle = document.getElementById("vehicle").value;
+    var date = document.getElementById("date").value;
+    var vehicle = document.getElementById("vehicle").value;
 
-    doc.setFontSize(12);
+    document.getElementById("showDate").innerHTML = date;
+    document.getElementById("showVehicle").innerHTML = vehicle;
 
-    doc.text("NEW BHARAT BORING AND GENERAL ENGINEERING WORKS", 10, 10);
-    doc.text("Turn by Tractor Centre, Opp. Tigraniya Factory Dwarka,", 10, 16);
-    doc.text("Mumbai Agra Road, Nashik-422001.", 10, 22);
+    var element = document.getElementById("letter");
 
-    doc.text("Date: " + date, 150, 30);
+    var opt = {
+        margin:       0.3,
+        filename:     'Inspection_Letter_'+vehicle+'.pdf',
+        image:        { type: 'jpeg', quality: 1 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
 
-    doc.text("To,", 10, 40);
-    doc.text("The Workshop Manager,", 10, 46);
-    doc.text("Seva Trucking Private Limited,", 10, 52);
-    doc.text("Vilholi – Nashik.", 10, 58);
-
-    doc.text("SUBJECT: Inspection of Cylinder Head components of vehicle registration number " + vehicle, 10, 70);
-
-    doc.text("Respected Sir,", 10, 80);
-
-    doc.text("We have inspected the cylinder head of the above-mentioned vehicle.", 10, 90);
-    doc.text("It is observed that there is a warpage of 0.20 mm between cylinder no.1 and no.4.", 10, 96);
-    doc.text("Also, intake and exhaust valves leakages observed.", 10, 102);
-
-    doc.text("Hence it is recommended for Re-conditioning and Re-surfacing of Cylinder Head.", 10, 112);
-
-    doc.text("CONCLUSION:", 10, 122);
-    doc.text("Cylinder Head Inlet and Exhaust valves need replacement.", 10, 128);
-    doc.text("Inlet valves: 6 Nos + Exhaust valves: 6 Nos + Valve Oil Seals: 12 Nos.", 10, 134);
-
-    doc.text("Yours sincerely,", 140, 160);
-    doc.text("ALL TYPES OF ENGINE & HEAD REPAIRING AND REBUILDING WORKS", 10, 180);
-
-    pdfBlob = doc.output("blob");
-    doc.save("Inspection_Letter_" + vehicle + ".pdf");
+    html2pdf().set(opt).from(element).save();
 }
 
-function sendWhatsApp() {
-    if (!pdfBlob) {
-        alert("Please create PDF first!");
-        return;
-    }
-
-    const file = new File([pdfBlob], "Inspection_Letter.pdf", { type: "application/pdf" });
-
-    if (navigator.share) {
-        navigator.share({
-            files: [file],
-            title: "Inspection Letter",
-            text: "Please find attached inspection letter."
-        });
-    } else {
-        alert("Sharing not supported on this device. Open from mobile browser.");
-    }
-}
 </script>
 
 </body>
